@@ -11,7 +11,9 @@ The provided MTSRA.m file needs to be placed in the Algorithms Folder in [MTO-Pl
 The [MTO-Platform](https://github.com/intLyc/MTO-Platform) has incorporated relevant algorithms and provides convenient functions. We highly recommend using MTO-Platform for code training. [https://github.com/intLyc/MTO-Platform](https://github.com/intLyc/MTO-Platform)
 
 The real-world applications covered in the paper have also been uploaded to the MTO-Platform
+
 [Sensor Coverage Problem](https://github.com/intLyc/MTO-Platform/tree/master/MTO/Problems/Real-world%20Applications/Sensor%20Coverage%20Problem)
+
 [Parameter Extraction of Photovoltaic Models](https://github.com/intLyc/MTO-Platform/tree/master/MTO/Problems/Real-world%20Applications/Parameter%20Extraction%20of%20Photovoltaic%20Models)
 
 ## Reference
