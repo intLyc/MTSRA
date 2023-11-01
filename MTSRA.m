@@ -57,7 +57,7 @@ methods
         population = Initialization(Algo, Prob, Individual_DE);
         RMP = Algo.RMP0 * ones(Prob.T, Prob.T);
         delta_rmp = Prob.N / Prob.maxFE;
-        delta_rmp = delta_rmp * (Prob.T * 2 - Prob.T);
+        delta_rmp = delta_rmp * (Prob.T^2 - Prob.T);
         for t = 1:Prob.T
             MF{t} = 0.5 .* ones(1, Algo.H);
             MCR{t} = 0.5 * ones(1, Algo.H);
@@ -84,13 +84,7 @@ methods
             end
 
             % Determine the a task based on the selection probability using roulette wheel method
-            r = rand;
-            for t = 1:Prob.T
-                if r <= sum(pro(Algo.Gen, 1:t))
-                    k = t;
-                    break;
-                end
-            end
+            k = RouletteSelection(pro(Algo.Gen, :));
 
             % randomly select communicate task
             task_list = 1:Prob.T; task_list(k) = [];
@@ -116,6 +110,7 @@ methods
             end
 
             [offspring, flag] = Algo.Generation(population{k}, union, population{c}, c_union, RMP(k, c));
+            best_g = [Algo.Best{:}];
             offspring = Algo.Evaluation(offspring, Prob, k);
 
             replace = [population{k}.Obj] > [offspring.Obj];
@@ -155,7 +150,6 @@ methods
 
             % calculate the reward
             R_p = max((Obj_old - Obj_new) ./ (Obj_old), 0);
-            best_g = [Algo.Best{:}];
             R_b = max((min([best_g.Obj]) - min(Obj_new)) / min([best_g.Obj]), 0);
             % The main task
             HR(k, HR_idx(k)) = Algo.Alpha * R_b + (1 - Algo.Alpha) * (sum(R_p) / length(R_p));
